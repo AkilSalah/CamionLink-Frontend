@@ -15,6 +15,7 @@ import { TruckComponent } from './Features/admin/truck/truck.component';
 import { TrajetComponent } from './Features/admin/trajet/trajet.component';
 import { CargaisonComponent } from './Features/admin/cargaison/cargaison.component';
 import { AuthInterceptor } from './Core/interceptor/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AuthInterceptor } from './Core/interceptor/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

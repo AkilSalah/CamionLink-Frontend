@@ -24,7 +24,6 @@ import { AuthInterceptor } from './Core/interceptor/auth.interceptor';
     DashboardComponent,
     ConducteurNavbarComponent,
     FooterComponent,
-    TruckComponent,
     TrajetComponent,
     CargaisonComponent,
   ],

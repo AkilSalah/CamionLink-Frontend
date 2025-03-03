@@ -4,12 +4,14 @@ import { CommonModule } from "@angular/common";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminNavbarComponent } from "../../Shared/components/admin-navbar/admin-navbar.component";
+import { TruckComponent } from "./truck/truck.component";
 
 @NgModule({
     declarations: [
         GestionConducteurComponent,
         AdminLayoutComponent,
-        AdminNavbarComponent
+        AdminNavbarComponent,
+        TruckComponent
     ],
     imports: [
         CommonModule,

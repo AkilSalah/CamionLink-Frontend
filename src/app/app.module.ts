@@ -16,6 +16,10 @@ import { TrajetComponent } from './Features/admin/trajet/trajet.component';
 import { CargaisonComponent } from './Features/admin/cargaison/cargaison.component';
 import { AuthInterceptor } from './Core/interceptor/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
+import { truckReducer } from './Features/store/reducers/truck.reducer';
+import { TruckEffects } from './Features/store/effects/truck.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,6 @@ import { StoreModule } from '@ngrx/store';
     RegisterComponent,
     LoginComponent,
     DashboardComponent,
-    ConducteurNavbarComponent,
     FooterComponent,
     TrajetComponent,
     CargaisonComponent,
@@ -33,8 +36,13 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({ trucks: truckReducer }),
+    EffectsModule.forRoot([TruckEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, 
+    })
   ],
+
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 

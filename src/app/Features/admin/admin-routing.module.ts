@@ -3,8 +3,16 @@ import { GestionConducteurComponent } from "./gestion-conducteur/gestion-conduct
 import { NgModule } from "@angular/core";
 import { AdminLayoutComponent } from "./admin-layout/admin-layout.component";
 import { TruckComponent } from "./truck/truck.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
+    {
+      path: '', 
+      component: AdminLayoutComponent, 
+      children: [
+        { path: 'dashboard', component: DashboardComponent }, 
+      ]
+    },
     {
         path: '', 
         component: AdminLayoutComponent, 
@@ -12,7 +20,7 @@ const routes: Routes = [
           { path: 'conducteurs', component: GestionConducteurComponent }, 
         ]
       },
-      {
+     {
         path: '', 
         component: AdminLayoutComponent, 
         children: [

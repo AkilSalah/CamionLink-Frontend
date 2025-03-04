@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { AdminLayoutComponent } from "./admin-layout/admin-layout.component";
 import { TruckComponent } from "./truck/truck.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { CargaisonComponent } from "./cargaison/cargaison.component";
 
 const routes: Routes = [
     {
@@ -26,7 +27,14 @@ const routes: Routes = [
         children: [
           { path: 'camions', component: TruckComponent }, 
         ]
-      }    
+      },
+      {
+        path: '', 
+        component: AdminLayoutComponent, 
+        children: [
+          { path: 'cargaison', component: CargaisonComponent }, 
+        ]
+      }  
   ];
   
   @NgModule({

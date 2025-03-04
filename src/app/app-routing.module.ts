@@ -8,7 +8,7 @@ import { GestionConducteurComponent } from './Features/admin/gestion-conducteur/
 import { AdminModule } from './Features/admin/admin.module';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent }, 
+  { path: '', component: LoginComponent }, 
   { path: 'register', component: RegisterComponent }, 
   { path: 'cond', component: ConducteurNavbarComponent }, 
   { 

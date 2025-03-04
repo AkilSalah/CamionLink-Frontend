@@ -5,6 +5,7 @@ import { AdminLayoutComponent } from "./admin-layout/admin-layout.component";
 import { TruckComponent } from "./truck/truck.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CargaisonComponent } from "./cargaison/cargaison.component";
+import { TrajetComponent } from "./trajet/trajet.component";
 
 const routes: Routes = [
     {
@@ -26,6 +27,13 @@ const routes: Routes = [
         component: AdminLayoutComponent, 
         children: [
           { path: 'camions', component: TruckComponent }, 
+        ]
+      },
+      {
+        path: '', 
+        component: AdminLayoutComponent, 
+        children: [
+          { path: 'trajets', component: TrajetComponent }, 
         ]
       },
       {

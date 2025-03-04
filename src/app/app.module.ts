@@ -20,6 +20,8 @@ import { truckReducer } from './Features/store/reducers/truck.reducer';
 import { TruckEffects } from './Features/store/effects/truck.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { cargaisonReducer } from './Features/store/reducers/cargaison.reducer';
+import { CargaisonEffects } from './Features/store/effects/cargaison.effects';
 
 @NgModule({
   declarations: [
@@ -36,8 +38,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ trucks: truckReducer }),
-    EffectsModule.forRoot([TruckEffects]),
+    StoreModule.forRoot({ trucks: truckReducer,cargaisons : cargaisonReducer }),
+    EffectsModule.forRoot([TruckEffects,CargaisonEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, 
     })

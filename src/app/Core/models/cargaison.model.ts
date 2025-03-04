@@ -2,5 +2,5 @@ export interface Cargaison{
     id: number,
     description: string,
     poids: number,
-    type: 'STANDARD'|'FRAGILE'
+    type: 'STANDARD'|'FRAGILE' |'DANGEREUX'
 }

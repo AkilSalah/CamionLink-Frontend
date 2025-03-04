@@ -52,7 +52,7 @@ export class TruckComponent implements OnInit {
   }
 
   loadTrucks(): void {
-    this.store.dispatch(TruckActions.loadTruck());
+    this.store.dispatch(TruckActions.loadTrucks());
   }
 
   editTruck(truck: Camion): void {

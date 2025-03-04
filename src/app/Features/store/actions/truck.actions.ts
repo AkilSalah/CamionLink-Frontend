@@ -1,7 +1,7 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Camion } from '../../../Core/models/camion.model';
 
-export const loadTruck = createAction('[Truck], Load trucks');
+export const loadTrucks = createAction('[Truck], Load trucks');
 export const loadTrucksSuccess = createAction('[Truck] , Load truck success',props<{trucks : Camion[]}>()); 
 export const loadTrucksFailure = createAction(
   '[Truck] Load Trucks Failure',

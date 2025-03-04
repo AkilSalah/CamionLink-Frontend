@@ -40,10 +40,6 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  isAdmin(): boolean {
-    return this.getRoles().includes('ADMIN');
-  }
-
   private saveSession(token: string, roles: any[]): void {
     localStorage.setItem('token', token);
     const roleNames = roles ? roles.map((role: any) => role.name) : [];

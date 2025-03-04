@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../../Core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AdminNavbarComponent {
   showSideBar : boolean = false;
+  isLoggedIn : boolean = false
+
+  constructor(private authService: AuthService , private router :Router) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
 
   displaySidebar(){
     this.showSideBar = true;
@@ -14,5 +21,12 @@ export class AdminNavbarComponent {
   
   closeSidebar(){
     this.showSideBar = false;
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(() => {
+      this.isLoggedIn = false;
+      this.router.navigate(['']);
+    });
   }
 }

@@ -14,7 +14,7 @@ export class TruckEffects {
 
   loadTrucks$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TruckActions.loadTruck),
+      ofType(TruckActions.loadTrucks),
       switchMap(() =>
         this.truckService.getTrucks().pipe(
           map(trucks => TruckActions.loadTrucksSuccess({ trucks })),

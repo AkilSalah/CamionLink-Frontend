@@ -19,7 +19,7 @@ export const initialState: TruckState = adapter.getInitialState({
 
 export const truckReducer = createReducer(
   initialState,
-  on(TruckActions.loadTruck, (state) => ({
+  on(TruckActions.loadTrucks, (state) => ({
     ...state,
     loading: true,
     error: null

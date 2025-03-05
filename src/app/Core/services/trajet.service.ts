@@ -12,8 +12,8 @@ export class TrajetService {
 
   constructor(private http : HttpClient) { }
 
-  getTrajet() : Observable<Trajet[]>{
-    return this.http.get<Trajet[]>(`${this.baseUrl}`)
+  getTrajet() : Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseUrl}`)
   }
   addTrajet(trajet: Trajet): Observable<Trajet> {
     return this.http.post<Trajet>(`${this.baseUrl}`, trajet);

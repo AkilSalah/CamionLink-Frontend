@@ -45,6 +45,7 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify({
       nom: response.nom,
       prenom: response.prenom,
+      email : response.email,
       type: response.type
     }));
   }

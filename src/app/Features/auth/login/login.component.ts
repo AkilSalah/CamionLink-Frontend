@@ -28,6 +28,7 @@ export class LoginComponent {
           this.router.navigate(['/admin']);
         }else if(response.type == 'CONDUCTEUR'){
           console.log("hada ra chiffor");
+          this.router.navigate(['/conducteur'])
         }
       },
       error : (err) =>{

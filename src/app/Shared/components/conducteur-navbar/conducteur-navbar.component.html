@@ -1,7 +1,7 @@
-<header class="bg-yellow-50  text-slate-700  relative mx-auto flex flex-col px-4 py-3 lg:flex-row lg:items-center">
+<header class="bg-transparent text-slate-700 relative mx-auto flex flex-col px-4 py-3 lg:flex-row lg:items-center">
   <a href="" routerLink="/home" class="flex items-center whitespace-nowrap text-2xl font-black">
     <span class="mr-2 w-56">
-      <img src="/placeholder.svg" alt="dzzzdz" />
+      <img src="../../../../assets/CamionLinkr.png" alt="dzzzdz" />
     </span>
   </a>
   <input type="checkbox" class="peer hidden" id="navbar-open" />
@@ -10,14 +10,15 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label>
-  <nav aria-label="Header Navigation" class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center transition-all lg:ml-24 lg:max-h-full lg:flex-row">
+  <!-- Correction des classes pour le menu mobile -->
+  <nav aria-label="Header Navigation" class="peer-checked:pt-8 peer-checked:max-h-96 peer-checked:opacity-100 flex max-h-0 opacity-0 overflow-hidden w-full flex-col items-center transition-all duration-300 lg:opacity-100 lg:overflow-visible lg:ml-24 lg:max-h-full lg:flex-row">
     <ul class="flex w-full flex-col cursor-pointer items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-      <li class="lg:mr-12"><a class="rounded text-gray-700 mt-2 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">Home</a></li>
-      <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">About</a></li>
+      <li routerLink="/conducteur/home" class="lg:mr-12"><a class="rounded text-gray-700 mt-2 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">Home</a></li>
+      <li routerLink="/conducteur/home" class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">About</a></li>
       <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">Mission</a></li>
       <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-[#bb162b] focus:ring-offset-2 hover:text-[#bb162b] block font-semibold text-[16px]">Contact</a></li>
     </ul>
-    <hr class="mt-4 w-full lg:hidden" />
+    <hr class="mt-4 w-full lg:hidden"/>
     <div class="my-4 flex items-center space-x-6 space-y-2 lg:my-0 lg:ml-auto lg:space-x-8 lg:space-y-0">
       <div class="flex max-lg:ml-auto space-x-4 items-center">
         <button type="button" class="relative p-2 text-gray-700 hover:text-[#bb162b] transition-colors">
@@ -26,20 +27,20 @@
           </svg>
           <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-[#efb225]"></span>
         </button>
-        <div class="relative z-50">
+        <div *ngIf="user " class="relative z-50">
           <button (click)="openDropDown()" class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-[#bb162b] dark:hover:text-[#efb225] md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">user menu</span>
-            <img src="https://ui-avatars.com/api/?name=Akil+Salah" alt="conducteur" class="w-8 h-8 me-2 rounded-full">
-             Akil Salah
+            <img src="https://ui-avatars.com/api/?name={{user.nom}}+{{user.prenom}}" alt="conducteur" class="w-8 h-8 me-2 rounded-full">
+             {{user.nom}} {{user.prenom}}
             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
           </button>
         
-          <div *ngIf="showDropdown" class="z-50 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600">
+          <div *ngIf="showDropdown" class="z-50 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-46 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-              <div class="font-medium">Pro User</div>
-              <div class="truncate">nameflowbite.com</div>
+              <div class="font-medium">Conducteur</div>
+              <div class="truncate"> {{user.email}}</div>
             </div>
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -47,7 +48,7 @@
               </li>
             </ul>
             <div class="py-2">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">LogOut</a>
+              <a (click)="logout()" class="block px-4 cursor-pointer py-2 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">LogOut</a>
             </div>
           </div>
         </div>

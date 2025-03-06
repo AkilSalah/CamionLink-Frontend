@@ -19,7 +19,7 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/login`, user).pipe(
       tap((response) => {
         if (response.token) {
-          this.saveSession(response.token, response.roles);
+          this.saveSession(response.token, response);
         }
       })
     );
@@ -40,24 +40,26 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  private saveSession(token: string, roles: any[]): void {
+  private saveSession(token: string, response: any): void {
     localStorage.setItem('token', token);
-    const roleNames = roles ? roles.map((role: any) => role.name) : [];
-    localStorage.setItem('roles', JSON.stringify(roleNames));
+    localStorage.setItem('user', JSON.stringify({
+      nom: response.nom,
+      prenom: response.prenom,
+      type: response.type
+    }));
+  }
+
+  getUser(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 
   private clearSession(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('roles');
+    localStorage.removeItem('user');
   }
 
   private getToken(): string | null {
     return localStorage.getItem('token');
   }
-
-  private getRoles(): string[] {
-    const roles = localStorage.getItem('roles');
-    return roles ? JSON.parse(roles) : [];
-  }
-
 }

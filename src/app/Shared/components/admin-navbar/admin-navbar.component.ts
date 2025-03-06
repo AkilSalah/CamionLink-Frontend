@@ -9,12 +9,15 @@ import { Router } from '@angular/router';
 })
 export class AdminNavbarComponent {
   showSideBar : boolean = false;
-  isLoggedIn : boolean = false
+  isLoggedIn : boolean = false;
+  user : any
 
   constructor(private authService: AuthService , private router :Router) {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
-
+  ngOnInit(): void {
+    this.user = this.authService.getUser();
+  }
   displaySidebar(){
     this.showSideBar = true;
   }

@@ -22,6 +22,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { cargaisonReducer } from './Features/store/reducers/cargaison.reducer';
 import { CargaisonEffects } from './Features/store/effects/cargaison.effects';
+import { ConducteurModule } from './Features/conducteur/conducteur.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import { CargaisonEffects } from './Features/store/effects/cargaison.effects';
     CargaisonComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ConducteurModule,
     HttpClientModule,
     StoreModule.forRoot({ trucks: truckReducer,cargaisons : cargaisonReducer }),
     EffectsModule.forRoot([TruckEffects,CargaisonEffects]),

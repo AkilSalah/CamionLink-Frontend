@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './conducteur-navbar.component.css'
 })
 export class ConducteurNavbarComponent {
+  showDropdown: boolean = false;
 
+  openDropDown() {
+    this.showDropdown = !this.showDropdown;
+  }
 }

@@ -4,7 +4,7 @@ export interface Utilisateur {
     prenom : string;
     email : string;
     password : string;
-    type : string;
+    type ?: string;
     contact: number;
     numeroPermis : string;
     disponibilite : string;

@@ -5,6 +5,7 @@ import { ConducteurLayoutComponent } from './conducteur-layout/conducteur-layout
 import { ConducteurRoutingModule } from "./conducteur-routing.module";
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FormsModule} from "@angular/forms";
 
 
 
@@ -17,8 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
     ],
     imports: [
         CommonModule,
-        ConducteurRoutingModule
-
+        ConducteurRoutingModule,
+        FormsModule
     ],
     providers: [
     ]

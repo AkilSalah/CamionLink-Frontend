@@ -9,6 +9,7 @@ export class AuthService {
 
   private baseUrl = 'http://localhost:8086/api/auth'; 
 
+
    constructor(private http : HttpClient) { }
 
   register(user: any) : Observable<any>{
@@ -36,6 +37,10 @@ export class AuthService {
     );
   }
 
+  verifyPassword(id: number, password: string): Observable<boolean> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<boolean>(`${this.baseUrl}/verify-password`, { id, currentPassword: password }, { headers });
+  }
   isLoggedIn(): boolean {
     return !!this.getToken();
   }

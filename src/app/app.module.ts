@@ -40,7 +40,6 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ConducteurModule,
     HttpClientModule,
     StoreModule.forRoot({ trucks: truckReducer,cargaisons : cargaisonReducer }),
     EffectsModule.forRoot([TruckEffects,CargaisonEffects]),

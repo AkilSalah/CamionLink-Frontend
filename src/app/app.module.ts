@@ -31,7 +31,6 @@ import { CommonModule } from '@angular/common';
     RegisterComponent,
     LoginComponent,
     DashboardComponent,
-    FooterComponent,
     TrajetComponent,
     CargaisonComponent,
   ],

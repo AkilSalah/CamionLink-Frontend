@@ -6,6 +6,7 @@ import { ConducteurRoutingModule } from "./conducteur-routing.module";
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule} from "@angular/forms";
+import { FooterComponent } from "../../Shared/components/footer/footer.component";
 
 
 
@@ -13,6 +14,7 @@ import { FormsModule} from "@angular/forms";
     declarations: [
         ConducteurNavbarComponent,
         ConducteurLayoutComponent,
+        FooterComponent,
         HomeComponent,
         ProfileComponent
     ],

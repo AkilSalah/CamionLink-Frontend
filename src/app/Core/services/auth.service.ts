@@ -51,7 +51,8 @@ export class AuthService {
       nom: response.nom,
       prenom: response.prenom,
       email : response.email,
-      type: response.type
+      type: response.type,
+      userId: response.userId 
     }));
   }
 

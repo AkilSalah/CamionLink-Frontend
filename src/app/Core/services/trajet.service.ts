@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Trajet } from '../models/trajet.model';
@@ -9,6 +9,8 @@ import { Trajet } from '../models/trajet.model';
 export class TrajetService {
 
   private baseUrl = 'http://localhost:8086/api/admin/trajets';
+  private conducteurBaseUrl = "http://localhost:8086/api/conducteur"
+
 
   constructor(private http : HttpClient) { }
 
@@ -26,4 +28,16 @@ export class TrajetService {
   deleteTrajet(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
-}
+
+  getConducteurTrajet(id :number) : Observable<Trajet[]>{
+    return this.http.get<Trajet[]>(`${this.conducteurBaseUrl}/${id}/trajets`)
+  }
+
+  updateTrajetStatus(conducteurId: number, trajetId: number, statut: string): Observable<Trajet> {
+    const params = new HttpParams().set('statut', statut);
+    return this.http.patch<Trajet>(
+      `${this.conducteurBaseUrl}/${conducteurId}/trajets/${trajetId}/statut`, 
+      null, 
+      { params }
+    );
+  }}

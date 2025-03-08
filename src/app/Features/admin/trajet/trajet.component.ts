@@ -20,10 +20,10 @@ export class TrajetComponent implements OnInit {
   
   currentTrajet: Trajet = {
     id: 0,
-    point_depart: '',
-    point_arrivee: '',
-    date_depart: '',
-    date_arrivee: '',
+    pointDepart: '',
+    pointArrivee: '',
+    dateDepart: '',
+    dateArrivee: '',
     statut: 'EN_ATTENTE',
     conducteur_id: 0,
     camion_id: 0,
@@ -96,10 +96,10 @@ export class TrajetComponent implements OnInit {
     this.isEditMode = false;
     this.currentTrajet = {
       id: 0,
-      point_depart: '',
-      point_arrivee: '',
-      date_depart: '',
-      date_arrivee: '',
+      pointDepart: '',
+      pointArrivee: '',
+      dateDepart: '',
+      dateArrivee: '',
       statut: 'EN_ATTENTE',
       conducteur_id: 0,
       camion_id: 0,
@@ -112,10 +112,10 @@ export class TrajetComponent implements OnInit {
     
     this.currentTrajet = {
       id: trajet.id,
-      point_depart: trajet.pointDepart || '',
-      point_arrivee: trajet.pointArrivee || '',
-      date_depart: trajet.dateDepart,
-      date_arrivee: trajet.dateArrivee,
+      pointDepart: trajet.pointDepart || '',
+      pointArrivee: trajet.pointArrivee || '',
+      dateDepart: trajet.dateDepart,
+      dateArrivee: trajet.dateArrivee,
       statut: trajet.statut || 'EN_ATTENTE',
       conducteur_id: trajet.conducteur?.id || 0,
       camion_id: trajet.camion?.id || 0,
@@ -132,8 +132,8 @@ export class TrajetComponent implements OnInit {
     
     const trajetToSave = {
       ...this.currentTrajet,
-      date_depart: this.currentTrajet.date_depart.replace('T', ' '),
-      date_arrivee: this.currentTrajet.date_arrivee.replace('T', ' ')
+      date_depart: this.currentTrajet.dateDepart.replace('T', ' '),
+      date_arrivee: this.currentTrajet.dateArrivee.replace('T', ' ')
     };
 
     if (this.isEditMode) {

@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule} from "@angular/forms";
 import { FooterComponent } from "../../Shared/components/footer/footer.component";
+import { MissionComponent } from './mission/mission.component';
 
 
 
@@ -16,7 +17,8 @@ import { FooterComponent } from "../../Shared/components/footer/footer.component
         ConducteurLayoutComponent,
         FooterComponent,
         HomeComponent,
-        ProfileComponent
+        ProfileComponent,
+        MissionComponent
     ],
     imports: [
         CommonModule,

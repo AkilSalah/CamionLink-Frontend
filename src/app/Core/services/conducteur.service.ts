@@ -16,7 +16,9 @@ export class ConducteurService {
   getConducteurs(): Observable<any> {
     return this.http.get(`${this.baseUrlAdmin}`)
   }
-
+  getConducteursCount(): Observable<any> {
+    return this.http.get(`${this.baseUrlAdmin}/count`)
+  }
   deleteConducteurs(id : number): Observable<any>{
       return this.http.delete(`${this.baseUrlAdmin}/${id}`)
   }

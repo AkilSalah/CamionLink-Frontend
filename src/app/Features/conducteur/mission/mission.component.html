@@ -5,10 +5,12 @@
         <p class="mt-2 text-gray-600">Gérez vos trajets assignés et leur progression</p>
       </div>
   
+      <!-- Indicateur de chargement -->
       <div *ngIf="isLoading" class="flex justify-center my-10">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#bb162b]"></div>
       </div>
   
+      <!-- Messages d'erreur et de succès -->
       <div *ngIf="errorMessage" class="mb-6">
         <div class="bg-red-50 border-l-4 border-red-500 p-4">
           <div class="flex">
@@ -39,7 +41,8 @@
         </div>
       </div>
   
-      <div *ngIf="!isLoading && (trajets$ | async)?.length === 0" class="bg-white rounded-lg shadow-md p-6 text-center">
+      <!-- Message quand aucun trajet n'est disponible -->
+      <div *ngIf="!isLoading && trajets.length === 0" class="bg-white rounded-lg shadow-md p-6 text-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
         </svg>
@@ -47,8 +50,9 @@
         <p class="mt-1 text-gray-500">Vous n'avez actuellement aucun trajet assigné.</p>
       </div>
   
-      <div *ngIf="!isLoading && ((trajets$ | async) || []).length > 0" class="space-y-6">
-        <div *ngFor="let trajet of trajets$ | async" class="bg-white rounded-lg shadow-md overflow-hidden">
+      <!-- Liste des trajets -->
+      <div *ngIf="!isLoading && trajets.length > 0" class="space-y-6">
+        <div *ngFor="let trajet of trajets" class="bg-white rounded-lg shadow-md overflow-hidden">
           
           <div class="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
                [ngClass]="{
@@ -121,11 +125,14 @@
             </div>
           </div>
           
+          <!-- Informations du trajet et détails -->
           <div class="px-6 py-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Informations sur le trajet -->
               <div>
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Informations sur le trajet</h3>
                 <div class="space-y-3">
+                  <!-- Point de départ -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -137,6 +144,7 @@
                     </div>
                   </div>
                   
+                  <!-- Point d'arrivée -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -148,6 +156,7 @@
                     </div>
                   </div>
                   
+                  <!-- Date de départ -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -158,6 +167,7 @@
                     </div>
                   </div>
                   
+                  <!-- Date d'arrivée -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -170,9 +180,11 @@
                 </div>
               </div>
               
+              <!-- Détails de la mission -->
               <div>
                 <h3 class="text-lg font-medium text-gray-900 mb-4">Détails de la mission</h3>
                 <div class="space-y-3">
+                  <!-- Cargaison -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
@@ -184,6 +196,7 @@
                     </div>
                   </div>
                   
+                  <!-- Camion -->
                   <div class="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
@@ -195,6 +208,68 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            
+            <!-- Section des dépenses -->
+            <div class="mt-6 border-t border-gray-200 pt-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Dépenses du trajet</h3>
+                <button 
+                  (click)="openDepenseModal(trajet.id)" 
+                  class="inline-flex items-center px-3 py-1.5 border border-[#efb225] text-sm font-medium rounded-md text-[#bb162b] bg-white hover:bg-[#efb225]/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#efb225]"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Ajouter une dépense
+                </button>
+              </div>
+              
+              <!-- Aucune dépense -->
+              <div *ngIf="!getTrajetDepenses(trajet.id) || getTrajetDepenses(trajet.id).length === 0" class="bg-gray-50 rounded-md p-4 text-center">
+                <p class="text-gray-500">Aucune dépense enregistrée pour ce trajet.</p>
+              </div>
+              
+              <!-- Liste des dépenses -->
+              <div *ngIf="getTrajetDepenses(trajet.id) && getTrajetDepenses(trajet.id).length > 0" class="overflow-hidden rounded-md border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr *ngFor="let depense of getTrajetDepenses(trajet.id)">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ depense.typeDepense }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ depense.montant }} DH</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ depense.date | date:'dd/MM/yyyy' }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                              [ngClass]="{
+                                'bg-yellow-100 text-yellow-800': depense.statut === 'EN_ATTENTE',
+                                'bg-green-100 text-green-800': depense.statut === 'VALIDEE',
+                                'bg-red-100 text-red-800': depense.statut === 'REFUSEE'
+                              }">
+                          {{ depense.statut }}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button 
+                          *ngIf="depense.statut === 'EN_ATTENTE'"
+                          (click)="deleteDepense(depense.id)" 
+                          class="text-red-600 hover:text-red-900"
+                        >
+                          Supprimer
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -229,6 +304,105 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal pour ajouter une dépense -->
+    <div *ngIf="showDepenseModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <!-- Modal -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-[#efb225]/20 sm:mx-0 sm:h-10 sm:w-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#efb225]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                  Ajouter une dépense
+                </h3>
+                <div class="mt-4 space-y-4">
+                  <div>
+                    <label for="depense-type" class="block text-sm font-medium text-gray-700">Type de dépense</label>
+                    <select 
+                      id="depense-type" 
+                      [(ngModel)]="nouvelleDepense.typeDepense" 
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+                    >
+                      <option value="CARBURANT">Carburant</option>
+                      <option value="PEAGE">Péage</option>
+                      <option value="REPAS">Repas</option>
+                      <option value="HEBERGEMENT">Hébergement</option>
+                      <option value="ENTRETIEN">Entretien</option>
+                      <option value="AUTRE">Autre</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label for="depense-montant" class="block text-sm font-medium text-gray-700">Montant (DH)</label>
+                    <input 
+                      type="number" 
+                      id="depense-montant" 
+                      [(ngModel)]="nouvelleDepense.montant" 
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                    >
+                  </div>
+                  <div>
+                    <label for="depense-montant" class="block text-sm font-medium text-gray-700">Montant (DH)</label>
+                    <input 
+                      type="hidden" 
+                      id="depense-trajet" 
+                      [(ngModel)]="nouvelleDepense.trajetId" 
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+                      placeholder="0.00"
+                    >
+                  </div>
+                  
+                  <div>
+                    <label for="depense-date" class="block text-sm font-medium text-gray-700">Date</label>
+                    <input 
+                      type="date" 
+                      id="depense-date" 
+                      [(ngModel)]="nouvelleDepense.date" 
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button 
+              type="button" 
+              (click)="ajouterDepense()" 
+              [disabled]="!nouvelleDepense.montant || !nouvelleDepense.typeDepense || !nouvelleDepense.date || isSubmittingDepense" 
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#bb162b] text-base font-medium text-white hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b] sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span *ngIf="isSubmittingDepense" class="inline-block mr-2">
+                <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+              Enregistrer
+            </button>
+            <button 
+              type="button" 
+              (click)="closeDepenseModal()" 
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            >
+              Annuler
+            </button>
           </div>
         </div>
       </div>

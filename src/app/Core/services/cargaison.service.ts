@@ -14,6 +14,9 @@ export class CargaisonService {
   getCargaisons() : Observable<Cargaison[]>{
     return this.http.get<Cargaison[]>(`${this.baseUrl}`)
   }
+  getCargaisonsCount() : Observable<number>{
+    return this.http.get<number>(`${this.baseUrl}/count`)
+  }
 
   addCargaison(cargaison: Cargaison): Observable<Cargaison> {
     return this.http.post<Cargaison>(this.baseUrl, cargaison);

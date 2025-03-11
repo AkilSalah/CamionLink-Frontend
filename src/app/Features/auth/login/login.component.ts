@@ -25,7 +25,7 @@ export class LoginComponent {
       next : (response) =>{
         if(response.type == 'ADMIN'){
           console.log("admin hada")
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/admin/dashboard']);
         }else if(response.type == 'CONDUCTEUR'){
           console.log("hada ra chiffor");
           this.router.navigate(['/conducteur/home'])

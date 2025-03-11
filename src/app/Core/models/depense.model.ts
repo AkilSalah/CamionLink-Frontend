@@ -1,8 +1,8 @@
 export interface Depense {
      id : number
-     depenseType : string
-     depenseStatut : 'EN_ATTENTE'|'VALIDEE'|'REFUSEE'
+     typeDepense : string
      montant: number
      date : string
      trajetId : number
+     statut : 'EN_ATTENTE'|'VALIDEE'|'REFUSEE'
 }

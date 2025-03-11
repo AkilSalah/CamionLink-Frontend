@@ -14,6 +14,9 @@ export class TruckService {
   getTrucks(): Observable<Camion[]> {
     return this.http.get<Camion[]>(this.baseUrl);
   }
+  getTrucksCount() : Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/count`);
+  }
 
   addTruck(camion : Camion) : Observable<Camion>{
     return this.http.post<Camion>(`${this.baseUrl}`,camion)

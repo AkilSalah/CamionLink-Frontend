@@ -17,6 +17,10 @@ export class TrajetService {
   getTrajet() : Observable<any[]>{
     return this.http.get<any[]>(`${this.baseUrl}`)
   }
+  getTrajetCount() : Observable<number>{
+    return this.http.get<number>(`${this.baseUrl}/count`)
+  }
+
   addTrajet(trajet: Trajet): Observable<Trajet> {
     return this.http.post<Trajet>(`${this.baseUrl}`, trajet);
   }

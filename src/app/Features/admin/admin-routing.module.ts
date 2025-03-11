@@ -21,28 +21,28 @@ const routes: Routes = [
         children: [
           { path: 'conducteurs', component: GestionConducteurComponent }, 
         ]
-      },
-     {
+    },
+    {
         path: '', 
         component: AdminLayoutComponent, 
         children: [
           { path: 'camions', component: TruckComponent }, 
         ]
-      },
-      {
+    },
+    {
         path: '', 
         component: AdminLayoutComponent, 
         children: [
           { path: 'trajets', component: TrajetComponent }, 
         ]
-      },
-      {
+    },
+    {
         path: '', 
         component: AdminLayoutComponent, 
         children: [
           { path: 'cargaison', component: CargaisonComponent }, 
         ]
-      }  
+    }  
   ];
   
   @NgModule({

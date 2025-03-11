@@ -10,29 +10,66 @@ import { TruckService } from '../../../Core/services/truck.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  camionCount : number = 0;
-  cargaisonCount : number = 0; 
-  trajetCount : number = 0;
-  conducteurCount : number = 0;
+  camionCount: number = 0;
+  cargaisonCount: number = 0;
+  trajetCount: number = 0;
+  conducteurCount: number = 0;
 
-  constructor(private truckService : TruckService, private cargaisonService: CargaisonService,
-    private conducteurService: ConducteurService , private trajetService : TrajetService
-  ){}
+  constructor(
+    private truckService: TruckService,
+    private cargaisonService: CargaisonService,
+    private conducteurService: ConducteurService,
+    private trajetService: TrajetService
+  ) {}
 
   ngOnInit(): void {
-   this.getCamionCount();
-    
+    this.getCamionCount();
+    this.getCargaisonCount();
+    this.getTrajetCount();
+    this.getConducteurCount();
   }
 
-  getCamionCount(){
+  getCamionCount() {
     this.truckService.getTrucksCount().subscribe({
-      next : response => {
-        this.camionCount = response
+      next: response => {
+        this.camionCount = response;
       },
-      error : error => {
-        console.log("error lors de la recuperation de nombre des camions")
+      error: error => {
+        console.error("Erreur lors de la récupération du nombre de camions", error);
       },
-    })
+    });
   }
 
+  getCargaisonCount() {
+    this.cargaisonService.getCargaisonsCount().subscribe({
+      next: response => {
+        this.cargaisonCount = response;
+      },
+      error: error => {
+        console.error("Erreur lors de la récupération du nombre de cargaisons", error);
+      },
+    });
+  }
+
+  getTrajetCount() {
+    this.trajetService.getTrajetCount().subscribe({
+      next: response => {
+        this.trajetCount = response;
+      },
+      error: error => {
+        console.error("Erreur lors de la récupération du nombre de trajets", error);
+      },
+    });
+  }
+
+  getConducteurCount() {
+    this.conducteurService.getConducteursCount().subscribe({
+      next: response => {
+        this.conducteurCount = response;
+      },
+      error: error => {
+        console.error("Erreur lors de la récupération du nombre de conducteurs", error);
+      },
+    });
+  }
 }

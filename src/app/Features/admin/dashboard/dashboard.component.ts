@@ -14,6 +14,7 @@ export class DashboardComponent {
   cargaisonCount: number = 0;
   trajetCount: number = 0;
   conducteurCount: number = 0;
+  trajetsByConducteur : any[] = [];
 
   constructor(
     private truckService: TruckService,
@@ -27,6 +28,7 @@ export class DashboardComponent {
     this.getCargaisonCount();
     this.getTrajetCount();
     this.getConducteurCount();
+    this.getConducteurTrajetStats();
   }
 
   getCamionCount() {
@@ -72,4 +74,16 @@ export class DashboardComponent {
       },
     });
   }
+
+  getConducteurTrajetStats() : void{
+    this.trajetService.getConducteurTrajetStats().subscribe({
+      next : response => {
+        this.trajetsByConducteur = response
+      },
+      error: error => {
+        console.error("Erreur lors de la récupération du nombre de trajets par un conducteur", error);
+      },
+    })
+  }
+
 }

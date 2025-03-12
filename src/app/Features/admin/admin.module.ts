@@ -6,7 +6,6 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminNavbarComponent } from "../../Shared/components/admin-navbar/admin-navbar.component";
 import { TruckComponent } from "./truck/truck.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DepenseManagementComponent } from './depense-management/depense-management.component';
 import { DepenseComponent } from './depense/depense.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { DepenseComponent } from './depense/depense.component';
         AdminLayoutComponent,
         AdminNavbarComponent,
         TruckComponent,
-        DepenseManagementComponent,
         DepenseComponent
     ],
     imports: [

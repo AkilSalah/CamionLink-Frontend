@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -43,6 +44,24 @@ export class AuthService {
   }
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  getUserRoles(): string[] {
+    const token = this.getToken();
+    if (!token) return [];
+    
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.roles || [];
+    } catch (error) {
+      console.error('Erreur lors du décodage du token:', error);
+      return [];
+    }
+  }
+  
+  hasRole(role: string): boolean {
+    const roles = this.getUserRoles();
+    return roles.includes(role);
   }
 
   private saveSession(token: string, response: any): void {

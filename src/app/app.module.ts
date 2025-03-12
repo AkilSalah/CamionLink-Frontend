@@ -24,6 +24,7 @@ import { cargaisonReducer } from './Features/store/reducers/cargaison.reducer';
 import { CargaisonEffects } from './Features/store/effects/cargaison.effects';
 import { ConducteurModule } from './Features/conducteur/conducteur.module';
 import { CommonModule } from '@angular/common';
+import { UnauthorizedComponent } from './Features/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CommonModule } from '@angular/common';
     DashboardComponent,
     TrajetComponent,
     CargaisonComponent,
+    UnauthorizedComponent,
   ],
   imports: [
     CommonModule,

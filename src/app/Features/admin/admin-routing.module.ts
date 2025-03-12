@@ -6,6 +6,7 @@ import { TruckComponent } from "./truck/truck.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CargaisonComponent } from "./cargaison/cargaison.component";
 import { TrajetComponent } from "./trajet/trajet.component";
+import { DepenseComponent } from "./depense/depense.component";
 
 const routes: Routes = [
     {
@@ -40,9 +41,16 @@ const routes: Routes = [
         path: '', 
         component: AdminLayoutComponent, 
         children: [
-          { path: 'cargaison', component: CargaisonComponent }, 
+          { path: 'cargaisons', component: CargaisonComponent }, 
         ]
-    }  
+    },
+    {
+      path: '', 
+      component: AdminLayoutComponent, 
+      children: [
+        { path: 'depenses', component: DepenseComponent }, 
+      ]
+  }  
   ];
   
   @NgModule({

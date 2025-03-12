@@ -7,6 +7,7 @@ import { Depense } from '../models/depense.model';
   providedIn: 'root'
 })
 export class DepenseService {
+  
   private baseConducteurUrl = 'http://localhost:8086/api/conducteur/depenses';
   private baseAdminUrl = 'http://localhost:8086/api/admin/depenses'
 
@@ -31,6 +32,6 @@ export class DepenseService {
 
   validateDepense(id : number , statut : string): Observable<Depense>{
     const params = new HttpParams().set('statut', statut);
-    return this.http.patch<Depense>(`${this.baseAdminUrl}/${id}/statut`,null,{params})
+    return this.http.put<Depense>(`${this.baseAdminUrl}/${id}`,null,{params})
   }
 }

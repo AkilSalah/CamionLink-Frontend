@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RoleGuard implements CanActivate {
   
   constructor(private router: Router, private authService: AuthService) {}

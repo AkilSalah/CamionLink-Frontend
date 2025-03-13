@@ -9,6 +9,7 @@ import { FormsModule} from "@angular/forms";
 import { FooterComponent } from "../../Shared/components/footer/footer.component";
 import { MissionComponent } from './mission/mission.component';
 import { DepenseComponent } from './depense/depense.component';
+import { PanneComponent } from './panne/panne.component';
 
 
 
@@ -20,7 +21,8 @@ import { DepenseComponent } from './depense/depense.component';
         HomeComponent,
         ProfileComponent,
         MissionComponent,
-        DepenseComponent
+        DepenseComponent,
+        PanneComponent
     ],
     imports: [
         CommonModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, catchError, finalize, of } from 'rxjs';
+import { catchError, finalize, of } from 'rxjs';
 import { TrajetService } from '../../../Core/services/trajet.service';
 import { AuthService } from '../../../Core/services/auth.service';
 import { Depense } from '../../../Core/models/depense.model';
@@ -14,24 +14,13 @@ import { DepenseService } from '../../../Core/services/depense.service';
 export class MissionComponent implements OnInit {
   conducteurId: number = 0;
   trajets: any[] = [];
-  depensesParTrajet: { [trajetId: number]: any[] } = {}; // Objet simple au lieu de Map
+  depensesParTrajet: { [trajetId: number]: Depense[] } = {}; 
   errorMessage: string | null = null;
   successMessage: string | null = null;
   isLoading = true;
   isUpdatingStatus = false;
-  isSubmittingDepense = false;
   updatingTrajetId: number | null = null;
   selectedTrajetId: number | null = null;
-  showDepenseModal = false;
-  
-  nouvelleDepense: any = {
-    id: 0,
-    typeDepense: '',
-    montant: 0,
-    date: '',
-    trajetId: 0,
-    statut: 'EN_ATTENTE'
-  };
 
   constructor(
     private trajetService: TrajetService,
@@ -59,11 +48,9 @@ export class MissionComponent implements OnInit {
         this.isLoading = false;
       })
     ).subscribe(trajets => {
-      // Ajouter statutSauvegarde à chaque trajet
       this.trajets = trajets.map(trajet => ({ ...trajet, statutSauvegarde: trajet.statut }));
       this.checkForLateTrajets();
       
-      // Charger les dépenses pour chaque trajet
       this.trajets.forEach(trajet => {
         this.loadTrajetDepenses(trajet.id);
       });
@@ -71,7 +58,6 @@ export class MissionComponent implements OnInit {
   }
 
   loadTrajetDepenses(trajetId: number): void {
-    // Vérifier que l'ID du trajet est défini
     if (!trajetId) {
       console.error('Tentative de chargement des dépenses avec un ID de trajet non défini');
       return;
@@ -83,14 +69,11 @@ export class MissionComponent implements OnInit {
         return of([]);
       })
     ).subscribe(depenses => {
-      // Utiliser un objet simple au lieu d'une Map
       this.depensesParTrajet[trajetId] = depenses;
-      console.log(`Dépenses chargées pour le trajet ${trajetId}:`, depenses);
     });
   }
 
-  // Récupérer les dépenses d'un trajet spécifique
-  getTrajetDepenses(trajetId: number): any[] {
+  getTrajetDepenses(trajetId: number): Depense[] {
     return this.depensesParTrajet[trajetId] || [];
   }
 
@@ -112,7 +95,6 @@ export class MissionComponent implements OnInit {
       })
     ).subscribe(updatedTrajet => {
       if (updatedTrajet) {
-        // Mise à jour du trajet modifié
         const index = this.trajets.findIndex(t => t.id === trajetId);
         if (index !== -1) {
           this.trajets[index] = { 
@@ -138,107 +120,16 @@ export class MissionComponent implements OnInit {
     });
   }
   
-  // Méthodes pour gérer les dépenses
-  openDepenseModal(trajetId: number): void {
-    this.selectedTrajetId = trajetId;
-    this.nouvelleDepense = {
-      id: 0,
-      typeDepense: '',
-      montant: 0,
-      date: new Date().toISOString().split('T')[0], 
-      trajetId: trajetId,
-      statut: 'EN_ATTENTE'
-    };
-    this.showDepenseModal = true;
+  onDepensesChange(trajetId: number, depenses: Depense[]): void {
+    this.depensesParTrajet[trajetId] = depenses;
   }
   
-  closeDepenseModal(): void {
-    this.showDepenseModal = false;
-    this.selectedTrajetId = null;
+  onSuccessMessage(message: string): void {
+    this.successMessage = message;
+    setTimeout(() => this.successMessage = null, 3000);
   }
   
-  ajouterDepense(): void {
-    if (!this.nouvelleDepense.montant || !this.nouvelleDepense.typeDepense || !this.nouvelleDepense.date) {
-      this.errorMessage = 'Veuillez remplir tous les champs obligatoires.';
-      return;
-    }
-    
-    // Assurez-vous que l'ID du trajet est bien défini
-    if (!this.selectedTrajetId) {
-      this.errorMessage = 'ID du trajet non défini. Veuillez réessayer.';
-      return;
-    }
-    
-    // Assurez-vous que l'ID du trajet est correctement assigné à la dépense
-    this.nouvelleDepense.trajetId = this.selectedTrajetId;
-    
-    this.isSubmittingDepense = true;
-    this.errorMessage = null;
-    
-    this.depenseService.addDepense(this.nouvelleDepense).pipe(
-      catchError(error => {
-        console.error('Erreur lors de l\'ajout de la dépense:', error);
-        this.errorMessage = 'Erreur lors de l\'ajout de la dépense. Veuillez réessayer.';
-        return of(null);
-      }),
-      finalize(() => {
-        this.isSubmittingDepense = false;
-      })
-    ).subscribe(newDepense => {
-      if (newDepense) {
-        // Vérifiez que l'ID du trajet est défini dans la réponse
-        const trajetId = newDepense.trajetId || this.selectedTrajetId;
-        
-        if (!trajetId) {
-          console.error('ID du trajet non défini dans la réponse');
-          this.errorMessage = 'Erreur lors de l\'ajout de la dépense. ID du trajet non défini.';
-          return;
-        }
-        
-        // Initialiser un tableau vide si besoin
-        if (!this.depensesParTrajet[trajetId]) {
-          this.depensesParTrajet[trajetId] = [];
-        }
-        
-        // Ajouter la nouvelle dépense à la liste
-        this.depensesParTrajet[trajetId] = [...this.depensesParTrajet[trajetId], newDepense];
-        
-        // Créer un nouvel objet pour forcer la détection de changement
-        this.depensesParTrajet = {...this.depensesParTrajet};
-        
-        console.log('Dépense ajoutée:', newDepense);
-        console.log('Dépenses pour le trajet', trajetId, ':', this.depensesParTrajet[trajetId]);
-        
-        this.successMessage = 'Dépense ajoutée avec succès.';
-        this.closeDepenseModal();
-        
-        setTimeout(() => {
-          this.successMessage = null;
-        }, 3000);
-      }
-    });
-  }
-  deleteDepense(depenseId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette dépense ?')) {
-      this.depenseService.deleteDepense(depenseId).pipe(
-        catchError(error => {
-          console.error('Erreur lors de la suppression de la dépense:', error);
-          this.errorMessage = 'Erreur lors de la suppression de la dépense. Veuillez réessayer.';
-          return of(null);
-        })
-      ).subscribe(() => {
-        // Parcourir tous les trajets pour trouver et supprimer la dépense
-        for (const trajetId in this.depensesParTrajet) {
-          // Filtrer pour enlever la dépense supprimée
-          const depenses = this.depensesParTrajet[trajetId];
-          this.depensesParTrajet[trajetId] = depenses.filter(d => d.id !== depenseId);
-        }
-        
-        this.successMessage = 'Dépense supprimée avec succès.';
-        setTimeout(() => {
-          this.successMessage = null;
-        }, 3000);
-      });
-    }
+  onErrorMessage(message: string): void {
+    this.errorMessage = message;
   }
 }

@@ -23,6 +23,7 @@ export class DepenseService {
   addDepense(depense : Depense): Observable<Depense>{
     return this.http.post<Depense>(`${this.baseConducteurUrl}`,depense);
   }
+  
   updateDepense(id: number, depense: Depense): Observable<Depense> {
     return this.http.put<Depense>(`${this.baseConducteurUrl}/${id}`, depense);
   }

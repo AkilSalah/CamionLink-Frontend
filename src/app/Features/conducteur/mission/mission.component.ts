@@ -4,6 +4,8 @@ import { TrajetService } from '../../../Core/services/trajet.service';
 import { AuthService } from '../../../Core/services/auth.service';
 import { Depense } from '../../../Core/models/depense.model';
 import { DepenseService } from '../../../Core/services/depense.service';
+import { Panne } from '../../../Core/models/panne.model';
+import { PanneService } from '../../../Core/services/panne.service';
 
 @Component({
   selector: 'app-mission',
@@ -14,7 +16,8 @@ import { DepenseService } from '../../../Core/services/depense.service';
 export class MissionComponent implements OnInit {
   conducteurId: number = 0;
   trajets: any[] = [];
-  depensesParTrajet: { [trajetId: number]: Depense[] } = {}; 
+  depensesParTrajet: { [trajetId: number]: Depense[] } = {};
+  pannesParTrajet: { [trajetId: number]: Panne[] } = {}; 
   errorMessage: string | null = null;
   successMessage: string | null = null;
   isLoading = true;
@@ -25,7 +28,8 @@ export class MissionComponent implements OnInit {
   constructor(
     private trajetService: TrajetService,
     private authService: AuthService,
-    private depenseService: DepenseService
+    private depenseService: DepenseService,
+    private pannseService: PanneService
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +57,7 @@ export class MissionComponent implements OnInit {
       
       this.trajets.forEach(trajet => {
         this.loadTrajetDepenses(trajet.id);
+        this.loadTrajetPannes(trajet.id);
       });
     });
   }
@@ -62,7 +67,7 @@ export class MissionComponent implements OnInit {
       console.error('Tentative de chargement des dépenses avec un ID de trajet non défini');
       return;
     }
-    
+
     this.depenseService.getTrajetDepenses(trajetId).pipe(
       catchError(error => {
         console.error(`Erreur lors du chargement des dépenses pour le trajet ${trajetId}:`, error);
@@ -73,9 +78,29 @@ export class MissionComponent implements OnInit {
     });
   }
 
+
+  loadTrajetPannes(trajetId : number){
+    if (!trajetId) {
+      console.error('Tentative de chargement des pannes avec un ID de trajet non défini');
+      return;
+    }
+    this.pannseService.getPannesByTrajet(trajetId).pipe(
+      catchError((error) => {
+        console.error(`Erreur lors du chargement des pannes pour le trajet ${trajetId}:`, error);
+        return of([]);
+      })
+  ).subscribe((pannes)=>{
+      this.pannesParTrajet[trajetId] = pannes;
+  })
+  }
+
   getTrajetDepenses(trajetId: number): Depense[] {
     return this.depensesParTrajet[trajetId] || [];
   }
+  getTrajetPannes(trajetId : number) : Panne[]{
+    return this.pannesParTrajet[trajetId] || [];
+  }
+
 
   updateTrajetStatus(trajetId: number, statut: string): void {
     this.isUpdatingStatus = true;
@@ -122,6 +147,9 @@ export class MissionComponent implements OnInit {
   
   onDepensesChange(trajetId: number, depenses: Depense[]): void {
     this.depensesParTrajet[trajetId] = depenses;
+  }
+  onPannesChange(trajetId: number , pannes : Panne[]) : void {
+    this.pannesParTrajet[trajetId] = pannes;
   }
   
   onSuccessMessage(message: string): void {

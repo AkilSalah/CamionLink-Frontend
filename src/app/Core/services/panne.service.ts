@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class PanneService {
 
-  private adminBaseUrl = "localhost:8086/api/admin/pannes";
-  private conducteurBaseUrl = "localhost:8086/api/conducteur/pannes"
+  private adminBaseUrl = "http://localhost:8086/api/admin/pannes";
+  private conducteurBaseUrl = "http://localhost:8086/api/conducteur/pannes"
 
   constructor(private http : HttpClient) { }
   

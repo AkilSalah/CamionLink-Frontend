@@ -7,6 +7,7 @@ import { AdminNavbarComponent } from "../../Shared/components/admin-navbar/admin
 import { TruckComponent } from "./truck/truck.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DepenseComponent } from './depense/depense.component';
+import { PanneManagementComponent } from './panne-management/panne-management.component';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { DepenseComponent } from './depense/depense.component';
         AdminLayoutComponent,
         AdminNavbarComponent,
         TruckComponent,
-        DepenseComponent
+        DepenseComponent,
+        PanneManagementComponent
     ],
     imports: [
         CommonModule,

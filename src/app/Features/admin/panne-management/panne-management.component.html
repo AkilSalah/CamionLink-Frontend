@@ -1,0 +1,303 @@
+<div class="container mx-auto px-4 py-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">Gestion des Pannes</h1>
+    <p class="text-gray-600">Consultez et gérez toutes les pannes signalées</p>
+  </div>
+  <div *ngIf="successMessage" class="mb-4 p-4 rounded-md bg-green-50 border border-green-200">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-medium text-green-800">{{ successMessage }}</p>
+      </div>
+      <div class="ml-auto pl-3">
+        <div class="-mx-1.5 -my-1.5">
+          <button (click)="successMessage = null" class="inline-flex rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <span class="sr-only">Dismiss</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="mb-4 p-4 rounded-md bg-red-50 border border-red-200">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-medium text-red-800">{{ errorMessage }}</p>
+      </div>
+      <div class="ml-auto pl-3">
+        <div class="-mx-1.5 -my-1.5">
+          <button (click)="errorMessage = null" class="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            <span class="sr-only">Dismiss</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 bg-white rounded-lg shadow p-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
+      <div class="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4">
+        <div>
+          <label for="urgence-filter" class="block text-sm font-medium text-gray-700">Filtrer par urgence</label>
+          <select 
+            id="urgence-filter" 
+            [(ngModel)]="filtreUrgence" 
+            (change)="appliquerFiltres()"
+            class="mt-1 block w-[20vw] rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+          >
+            <option value="TOUS">Tous</option>
+            <option value="IMMEDIATE">Immédiate</option>
+            <option value="APRES_TRAJET">Après trajet</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="w-full md:w-64">
+        <label for="search" class="block text-sm font-medium text-gray-700">Rechercher</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <input 
+            type="text"
+            id="search"
+            [(ngModel)]="searchTerm"
+            (input)="appliquerFiltres()"
+            class="focus:ring-[#bb162b] focus:border-[#bb162b] block w-full pr-10 sm:text-sm border-gray-300 rounded-md" 
+            placeholder="Rechercher par description, ID..."
+          >
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-4 flex justify-end">
+      <button 
+        (click)="resetFiltres()" 
+        class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+      >
+        Réinitialiser les filtres
+      </button>
+      <button 
+        (click)="loadAllPannes()" 
+        class="ml-3 inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-[#bb162b] hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Actualiser
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="flex justify-center my-8">
+    <svg class="animate-spin h-10 w-10 text-[#bb162b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+  </div>
+
+  <div *ngIf="!isLoading && (!pannesFiltrees || pannesFiltrees.length === 0)" class="bg-white rounded-lg shadow p-8 text-center">
+    <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <h3 class="mt-2 text-sm font-medium text-gray-900">Aucune panne trouvée</h3>
+    <p class="mt-1 text-sm text-gray-500">
+      Aucune panne ne correspond à vos critères de recherche ou il n'y a pas de pannes enregistrées.
+    </p>
+    <div class="mt-6">
+      <button 
+        (click)="resetFiltres(); loadAllPannes();" 
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#bb162b] hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+      >
+        Réinitialiser et actualiser
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && pannesFiltrees && pannesFiltrees.length > 0" class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="flex justify-between items-center p-4 border-b">
+      <div>
+        <h2 class="text-lg font-medium text-gray-900">Liste des pannes</h2>
+        <p class="text-sm text-gray-500">{{ pannesFiltrees.length }} résultat(s) trouvé(s)</p>
+      </div>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" >
+              ID
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+              Date
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" >
+              Trajet ID
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Description
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+              Urgence
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let panne of pannesFiltrees">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ panne.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ panne.datePanne | date:'dd/MM/yyyy' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <a class="text-[#bb162b] hover:underline">
+                {{ panne.trajet.id }}
+              </a>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500 max-w-md">
+              <div class="truncate">{{ panne.description }}</div>
+              <button 
+                *ngIf="panne.description.length > 50" 
+                (click)="voirDetails(panne)" 
+                class="text-xs text-[#bb162b] hover:underline mt-1"
+              >
+                Voir plus
+              </button>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                    [ngClass]="{
+                      'bg-red-100 text-red-800': panne.urgence === 'IMMEDIATE',
+                      'bg-yellow-100 text-yellow-800': panne.urgence === 'APRES_TRAJET'
+                    }">
+                {{ panne.urgence === 'IMMEDIATE' ? 'Immédiate' : 'Après trajet' }}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <div class="flex space-x-2">
+                <button 
+                  (click)="voirDetails(panne)" 
+                  class="text-indigo-600 hover:text-indigo-900"
+                  title="Voir détails"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </button>
+                <button 
+                  (click)="supprimerPanne(panne.id)" 
+                  class="text-red-600 hover:text-red-900"
+                  title="Supprimer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="panneDetails" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Détails de la panne #{{ panneDetails.id }}
+            </h3>
+            <div class="mt-4 space-y-4">
+              <div>
+                <p class="text-sm font-medium text-gray-500">Date de la panne</p>
+                <p class="text-sm text-gray-900">{{ panneDetails.datePanne | date:'dd/MM/yyyy' }}</p>
+              </div>
+              
+              <div>
+                <p class="text-sm font-medium text-gray-500">Trajet ID</p>
+                <p class="text-sm text-gray-900">
+                  <a [routerLink]="['/trajets', panneDetails.trajet?.id]" class="text-[#bb162b] hover:underline" (click)="fermerDetails()">
+                    {{ panneDetails.trajet?.id }}
+                  </a>
+                </p>
+              </div>
+              
+              <div>
+                <p class="text-sm font-medium text-gray-500">Description</p>
+                <p class="text-sm text-gray-900 whitespace-pre-line">{{ panneDetails.description }}</p>
+              </div>
+              
+              <div>
+                <p class="text-sm font-medium text-gray-500">Niveau d'urgence</p>
+                <p class="text-sm">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                        [ngClass]="{
+                          'bg-red-100 text-red-800': panneDetails.urgence === 'IMMEDIATE',
+                          'bg-yellow-100 text-yellow-800': panneDetails.urgence === 'APRES_TRAJET'
+                        }">
+                    {{ panneDetails.urgence === 'IMMEDIATE' ? 'Immédiate' : 'Après trajet' }}
+                  </span>
+                </p>
+              </div>
+
+              <div>
+                <p class="text-sm font-medium text-gray-500">Détails du trajet</p>
+                <div class="text-sm text-gray-900 mt-1">
+                  <p><span class="font-medium">Départ:</span> {{ panneDetails.trajet.pointDepart }}</p>
+                  <p><span class="font-medium">Arrivée:</span> {{ panneDetails.trajet.pointArrivee }}</p>
+                  <p><span class="font-medium">Statut:</span> {{ panneDetails.trajet.statut }}</p>
+                  <p><span class="font-medium">Camion:</span> {{ panneDetails.trajet.camion.marque }} {{ panneDetails.trajet.camion.modele }}</p>
+                  <p><span class="font-medium">Conducteur:</span> {{ panneDetails.trajet.conducteur.prenom }} {{ panneDetails.trajet.conducteur.nom }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button 
+          type="button" 
+          (click)="fermerDetails()" 
+          class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+        >
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -7,6 +7,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CargaisonComponent } from "./cargaison/cargaison.component";
 import { TrajetComponent } from "./trajet/trajet.component";
 import { DepenseComponent } from "./depense/depense.component";
+import { PanneManagementComponent } from "./panne-management/panne-management.component";
 
 const routes: Routes = [
     {
@@ -44,6 +45,13 @@ const routes: Routes = [
           { path: 'cargaisons', component: CargaisonComponent }, 
         ]
     },
+    {
+      path: '', 
+      component: AdminLayoutComponent, 
+      children: [
+        { path: 'Pannes', component: PanneManagementComponent }, 
+      ]
+  },
     {
       path: '', 
       component: AdminLayoutComponent, 

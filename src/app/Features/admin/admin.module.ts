@@ -8,6 +8,7 @@ import { TruckComponent } from "./truck/truck.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DepenseComponent } from './depense/depense.component';
 import { PanneManagementComponent } from './panne-management/panne-management.component';
+import { EntretienComponent } from './entretien/entretien.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { PanneManagementComponent } from './panne-management/panne-management.co
         AdminNavbarComponent,
         TruckComponent,
         DepenseComponent,
-        PanneManagementComponent
+        PanneManagementComponent,
+        EntretienComponent
     ],
     imports: [
         CommonModule,

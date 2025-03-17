@@ -12,7 +12,7 @@ import { Entretien } from '../../../Core/models/entretien.model';
 })
 
 export class PanneManagementComponent implements OnInit {
-  pannes: any[] = []
+  pannes: Panne[] = []
   pannesFiltrees: any[] = []
   successMessage: string | null = null
   errorMessage: string | null = null
@@ -68,7 +68,7 @@ export class PanneManagementComponent implements OnInit {
         (panne) =>
           panne.description.toLowerCase().includes(searchLower) ||
           panne.id.toString().includes(searchLower) ||
-          (panne.trajet?.id && panne.Trajet.id.toString().includes(searchLower)) ||
+          (panne.trajet?.id && panne.trajet.id.toString().includes(searchLower)) ||
           (panne.trajet?.pointDepart && panne.trajet.pointDepart.toLowerCase().includes(searchLower)) ||
           (panne.trajet?.pointArrivee && panne.trajet.pointArrivee.toLowerCase().includes(searchLower)) ||
           (panne.trajet?.conducteur?.nom && panne.trajet.conducteur.nom.toLowerCase().includes(searchLower)),

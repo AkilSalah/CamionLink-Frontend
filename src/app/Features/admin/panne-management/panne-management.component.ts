@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Panne } from '../../../Core/models/panne.model';
 import { PanneService } from '../../../Core/services/panne.service';
 import { catchError, finalize, Observable, of } from 'rxjs';
+import { EntretienService } from '../../../Core/services/entretien.service';
+import { Entretien } from '../../../Core/models/entretien.model';
 
 @Component({
   selector: "app-panne-management",
   templateUrl: "./panne-management.component.html",
   styleUrl: "./panne-management.component.css",
 })
+
 export class PanneManagementComponent implements OnInit {
   pannes: any[] = []
   pannesFiltrees: any[] = []
@@ -15,12 +18,15 @@ export class PanneManagementComponent implements OnInit {
   errorMessage: string | null = null
   isLoading = false
 
+  entretiensForSelectedPanne: any[] = []
+  selectedPanneId: number | null = null
+
   filtreUrgence = "TOUS"
   searchTerm = ""
 
   panneDetails: any | null = null
 
-  constructor(private panneService: PanneService) {}
+  constructor(private panneService: PanneService,private entretienService : EntretienService) {}
 
   ngOnInit(): void {
     this.loadAllPannes()
@@ -79,11 +85,17 @@ export class PanneManagementComponent implements OnInit {
   }
 
   voirDetails(panne: Panne): void {
-    this.panneDetails = panne
+    console.log("Panne sélectionnée:", panne);
+    this.panneDetails = panne;
+    this.selectedPanneId = panne.id;
+    console.log("selectedPanneId défini à:", this.selectedPanneId);
+    this.loadEntretiensForPanne(panne.id);
   }
 
   fermerDetails(): void {
     this.panneDetails = null
+    this.selectedPanneId = null
+    this.entretiensForSelectedPanne = []
   }
 
   supprimerPanne(panneId: number): void {
@@ -104,6 +116,42 @@ export class PanneManagementComponent implements OnInit {
           this.successMessage = "Panne supprimée avec succès."
           setTimeout(() => (this.successMessage = null), 3000)
         })
+    }
+  }
+  
+  loadEntretiensForPanne(panneId: number): void {
+    console.log("Chargement des entretiens pour la panne ID:", panneId);
+    this.entretienService
+      .getAllEntretien()
+      .pipe(
+        catchError((error) => {
+          console.error("Erreur lors du chargement des entretiens:", error);
+          this.errorMessage = "Erreur lors du chargement des entretiens. Veuillez réessayer.";
+          return of([]);
+        }),
+      )
+      .subscribe((entretiens) => {
+        console.log("Tous les entretiens reçus:", entretiens);
+        this.entretiensForSelectedPanne = entretiens.filter((e) => e.panne?.id === panneId);
+        console.log("Entretiens filtrés:", this.entretiensForSelectedPanne);
+      });
+  }
+
+  handleEntretienChanged(entretiens: Entretien[]): void {
+    this.entretiensForSelectedPanne = entretiens
+  }
+
+  handleSuccessMessage(message: string): void {
+    this.successMessage = message
+    setTimeout(() => (this.successMessage = null), 3000)
+  }
+
+  handleErrorMessage(message: string): void {
+    if (message) {
+      this.errorMessage = message
+      setTimeout(() => (this.errorMessage = null), 5000)
+    } else {
+      this.errorMessage = null
     }
   }
 }

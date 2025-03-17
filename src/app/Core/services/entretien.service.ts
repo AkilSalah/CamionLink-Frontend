@@ -8,14 +8,16 @@ import { Entretien } from '../models/entretien.model';
 })
 export class EntretienService {
   private baseUrl = 'http://localhost:8086/api/admin/entretiens';
+  private base_Url = 'http://localhost:8086/api/conducteur/entretiens';
+
 
   constructor(private http : HttpClient) { }
 
-  getAllEntretien() : Observable<Entretien[]>{
-    return this.http.get<Entretien[]>(`${this.baseUrl}`)
+  getAllEntretien(): Observable<Entretien[]> {
+    return this.http.get<Entretien[]>(`${this.base_Url}`);
   }
   getEntretienById(id: number): Observable<Entretien> {
-    return this.http.get<Entretien>(`${this.baseUrl}/${id}`);
+    return this.http.get<Entretien>(`${this.base_Url}/${id}`);
   }
 
   addEntretien(entretien: Entretien): Observable<Entretien> {

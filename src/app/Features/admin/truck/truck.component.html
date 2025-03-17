@@ -1,12 +1,119 @@
 <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-    <div class="p-6 border-b flex justify-between border-gray-200">
-      <h2 class="text-xl font-semibold text-gray-800">Camions Récentes</h2>
-      <button type="button" (click)="openModal()" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+  <div class="p-6 border-b flex justify-between border-gray-200">
+    <h2 class="text-xl font-semibold text-gray-800">Camions Récentes</h2>
+    <button type="button" (click)="openModal()" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+      Ajouter un camion
+    </button>
+  </div>
+
+  <div *ngIf="successMessage" class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700">
+    <p>{{ successMessage }}</p>
+  </div>
+  
+  <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <!-- Filtres et recherche -->
+  <div class="mb-6 bg-white rounded-lg shadow p-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
+      <div class="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4">
+        <div>
+          <label for="urgence-filter" class="block text-sm font-medium text-gray-700">Filtrer par état de camion</label>
+          <select 
+            id="urgence-filter" 
+            [(ngModel)]="filtreEtat"
+            (ngModelChange)="onFiltreChange()"
+            class="mt-1 block w-[20vw] rounded-md border-gray-300 shadow-sm focus:border-[#bb162b] focus:ring-[#bb162b] sm:text-sm"
+          >
+            <option value="TOUS">Tous</option>
+            <option value="DISPONIBLE">DISPONIBLE</option>
+            <option value="EN_MAINTENANCE">EN_MAINTENANCE</option>
+            <option value="HORS_SERVICE">HORS_SERVICE</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="w-full md:w-64">
+        <label for="search" class="block text-sm font-medium text-gray-700">Rechercher</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <input 
+            type="text"
+            id="search"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+            class="focus:ring-[#bb162b] focus:border-[#bb162b] block w-full pr-10 sm:text-sm border-gray-300 rounded-md" 
+            placeholder="Rechercher par marque, modele..."
+          >
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-4 flex justify-between">
+      <button 
+        (click)="openModal()"
+        class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-[#bb162b] hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
         Ajouter un camion
       </button>
+      
+      <div class="flex space-x-3">
+        <button 
+          (click)="resetFiltres()" 
+          class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+        >
+          Réinitialiser les filtres
+        </button>
+        <button 
+          (click)="loadTrucks()" 
+          class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-[#bb162b] hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Actualiser
+        </button>
+      </div>
     </div>
+  </div>
   
-<div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="flex justify-center my-8">
+    <svg class="animate-spin h-10 w-10 text-[#bb162b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+  </div>
+  
+  <!-- Message si aucun camion trouvé -->
+  <div *ngIf="!loading && trucksFiltres.length === 0" class="bg-white rounded-lg shadow p-8 text-center">
+    <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <h3 class="mt-2 text-sm font-medium text-gray-900">Aucun camion trouvé</h3>
+    <p class="mt-1 text-sm text-gray-500">
+      Aucun camion ne correspond à vos critères de recherche ou il n'y a pas de camions enregistrés.
+    </p>
+    <div class="mt-6">
+      <button 
+        (click)="resetFiltres(); loadTrucks();" 
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#bb162b] hover:bg-[#a01425] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#bb162b]"
+      >
+        Réinitialiser et actualiser
+      </button>
+    </div>
+  </div>
+
+    
+    <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
       <div class="flex justify-between items-center mb-6 border-b pb-3">
         <h3 class="text-xl font-bold" style="color: #bb162b">
@@ -79,8 +186,8 @@
     </div>
   </div>
 
-    <div *ngIf="trucks$ | async as trucks" class="bg-gray-50 flex justify-between w-full m-5 gap-5 flex-wrap p-6">
-      <div *ngFor="let truck of trucks" class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+    <div *ngIf="trucksFiltres && trucksFiltres.length > 0" class="bg-gray-50 flex justify-between w-full m-5 gap-5 flex-wrap p-6">
+      <div *ngFor="let truck of trucksFiltres" class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div class="h-48 w-full overflow-hidden">
           <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
                alt="Camion" 

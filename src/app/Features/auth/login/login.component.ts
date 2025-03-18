@@ -34,6 +34,7 @@ export class LoginComponent {
       error : (err) =>{
         console.error('Login failed:', err);
         this.errorMessage = 'Login failed: ' + (err.error?.message || 'Unknown error'); 
+        setTimeout(() => this.errorMessage = null, 3000);
       },
     })
   }

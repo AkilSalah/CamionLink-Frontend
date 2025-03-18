@@ -1,7 +1,6 @@
 <div class="font-[sans-serif] bg-white min-h-screen flex flex-col items-center justify-center">
     <div class="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_170px_-3px_rgba(0,0,0,0.5)] rounded-md">
         <div class="w-full h-full flex items-center bg-[#bb162b] rounded-xl p-8">
-            <!-- Image placeholder -->
              <img src="https://www.volvotrucks.us/news-and-stories/volvo-trucks-stories/preserving-carter-expresss-deep-history-with-volvo-trucks/media_152e2ca41fb26fbc2bb448555f2e363c0c418991f.jpeg?width=2000&format=webply&optimize=mediu" class="rounded-2xl h-full" alt="">
         </div>
         <div class="md:max-w-md w-full px-4 py-4">
@@ -61,10 +60,10 @@
                     <div>
                         <label class="text-gray-800 text-xs block mb-2">Contact</label>
                         <div class="relative items-center">
-                            <input name="contact" [(ngModel)]="user.contact" type="text" required pattern="[0-9]{10}" class="w-full text-gray-800 text-sm border-b border-gray-300 focus:border-[#bb162b] pl-2 pr-8 py-3 outline-none" placeholder="Entrer contact" />
+                            <input name="contact" [(ngModel)]="user.contact" type="text" required pattern="^0\d{9}$" class="w-full text-gray-800 text-sm border-b border-gray-300 focus:border-[#bb162b] pl-2 pr-8 py-3 outline-none" placeholder="Entrer contact" />
                             <div *ngIf="registerForm.controls['contact']?.errors && registerForm.controls['contact']?.touched" class="text-red-500 mt-1 text-xs">
                                 <div *ngIf="registerForm.controls['contact'].errors?.['required']">Contact est requis.</div>
-                                <div *ngIf="registerForm.controls['contact'].errors?.['pattern']">Contact doit être composé de 10 chiffres.</div>
+                                <div *ngIf="registerForm.controls['contact'].errors?.['pattern']">Contact doit être composé de 10 chiffres et commencer par 0.</div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +77,13 @@
                         </div>
                     </div>
                 </div>
-            
+                <div *ngIf="successMessage" class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700">
+                    <p>{{ successMessage }}</p>
+                  </div>
+                  
+                  <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+                    <p>{{ errorMessage }}</p>
+                  </div>
                 <div class="mt-12">
                     <button type="submit" [disabled]="registerForm.invalid" class="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#bb162b] hover:bg-[rgb(239,178,37)] focus:outline-none transition-colors duration-300">
                         Sign up

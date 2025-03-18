@@ -35,11 +35,14 @@ export class RegisterComponent {
         localStorage.setItem('token',response.token);
         this.successMessage = 'Registration successful!';
         this.errorMessage = null;
+        setTimeout(() => this.successMessage = null, 3000);
         console.log('Registration successful!')
+        this.router.navigate(['']);
       },
       error : (err) =>{
         this.errorMessage = 'Registration failed: ' + err.error;
         this.successMessage = null;
+        setTimeout(()=> this.errorMessage = null,3000 )
       }
     })
   }

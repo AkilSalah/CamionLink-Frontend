@@ -1,7 +1,6 @@
 <div class="font-[sans-serif] bg-white min-h-screen flex flex-col items-center justify-center">
     <div class="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_170px_-3px_rgba(0,0,0,0.5)] rounded-md">
         <div class="w-full h-full flex items-center bg-[#bb162b] rounded-xl p-8">
-            <!-- Image placeholder -->
              <img src="https://www.volvotrucks.us/news-and-stories/volvo-trucks-stories/preserving-carter-expresss-deep-history-with-volvo-trucks/media_1ddd9858e76322a897b672e9cfafc0bb1537be3a6.jpeg?width=2000&format=webply&optimize=medium" alt="" class="rounded-2xl h-full">
         </div>
         <div class="md:max-w-md w-full px-4 py-4">
@@ -46,6 +45,10 @@
                             <div *ngIf="loginForm.controls['password'].errors?.['minlength']">Mot de passe doit avoir au moins 8 caractères.</div>
                         </div>
                     </div>
+                </div>
+                 
+                <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+                    <p>{{ errorMessage }}</p>
                 </div>
 
                 <div class="mt-12">

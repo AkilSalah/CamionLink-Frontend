@@ -183,7 +183,9 @@
           </svg>
         </button>
       </div>
-  
+      <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+        <span class="block sm:inline">{{ errorMessage }}</span>
+      </div>
       <form (ngSubmit)="saveTrajet()" class="space-y-4" *ngIf="currentTrajet">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="space-y-2">
@@ -194,8 +196,11 @@
                    required
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#efb225] focus:ring-opacity-50 focus:border-transparent transition-colors"
                    placeholder="Entrez le point de départ">
+            <div *ngIf="validationErrors['pointDepart']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['pointDepart'] }}
+            </div>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Point d'arrivée</label>
             <input [(ngModel)]="currentTrajet.pointArrivee" 
@@ -204,8 +209,11 @@
                    required
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#efb225] focus:ring-opacity-50 focus:border-transparent transition-colors"
                    placeholder="Entrez le point d'arrivée">
+            <div *ngIf="validationErrors['pointArrivee']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['pointArrivee'] }}
+            </div>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Date de départ</label>
             <input 
@@ -215,6 +223,9 @@
               type="datetime-local" 
               required
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#efb225] focus:ring-opacity-50 focus:border-transparent transition-colors">
+            <div *ngIf="validationErrors['dateDepart']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['dateDepart'] }}
+            </div>
           </div>
           
           <div class="space-y-2">
@@ -226,8 +237,11 @@
               type="datetime-local" 
               required
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#efb225] focus:ring-opacity-50 focus:border-transparent transition-colors">
+            <div *ngIf="validationErrors['dateArrivee']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['dateArrivee'] }}
+            </div>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Statut</label>
             <select [(ngModel)]="currentTrajet.statut" 
@@ -240,7 +254,7 @@
               <option value="EN_RETARD">En retard</option>
             </select>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Conducteur</label>
             <select [(ngModel)]="currentTrajet.conducteur_id" 
@@ -252,8 +266,11 @@
                 {{conducteur.nom}} {{conducteur.prenom}} - {{conducteur.disponibilite}}
               </option>
             </select>
+            <div *ngIf="validationErrors['conducteur_id']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['conducteur_id'] }}
+            </div>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Camion</label>
             <select [(ngModel)]="currentTrajet.camion_id" 
@@ -265,8 +282,11 @@
                 {{camion.marque}} {{camion.modele}} ({{camion.etat}})
               </option>
             </select>
+            <div *ngIf="validationErrors['camion_id']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['camion_id'] }}
+            </div>
           </div>
-  
+      
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Cargaison</label>
             <select [(ngModel)]="currentTrajet.cargaison_id" 
@@ -278,9 +298,12 @@
                 {{cargaison.description}} - {{cargaison.poids}}T ({{cargaison.type}})
               </option>
             </select>
+            <div *ngIf="validationErrors['cargaison_id']" class="text-red-500 text-sm mt-1">
+              {{ validationErrors['cargaison_id'] }}
+            </div>
           </div>
         </div>
-  
+      
         <div class="flex justify-end space-x-3 mt-6 pt-4 border-t">
           <button type="button" 
                   (click)="closeModal()" 
@@ -288,8 +311,7 @@
             Annuler
           </button>
           <button type="submit" 
-                  class="px-4 py-2 text-white rounded-lg transition-colors bg-[#bb162b] hover:bg-[#efb225]"
-                  [disabled]="!currentTrajet.pointDepart || !currentTrajet.pointArrivee || !currentTrajet.conducteur_id || !currentTrajet.camion_id || !currentTrajet.cargaison_id">
+                  class="px-4 py-2 text-white rounded-lg transition-colors bg-[#bb162b] hover:bg-[#efb225]">
             {{ isEditMode ? 'Modifier' : 'Planifier' }}
           </button>
         </div>

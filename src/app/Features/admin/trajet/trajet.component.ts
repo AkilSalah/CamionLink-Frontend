@@ -5,6 +5,7 @@ import { TrajetService } from '../../../Core/services/trajet.service';
 import { ConducteurService } from '../../../Core/services/conducteur.service';
 import { TruckService } from '../../../Core/services/truck.service';
 import { CargaisonService } from '../../../Core/services/cargaison.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-trajet",
@@ -16,6 +17,8 @@ export class TrajetComponent implements OnInit {
   errorMessage: string | null = null
   showModal = false
   isEditMode = false
+
+  validationErrors: { [key: string]: string } = {}
 
   currentTrajet: any = {
     id: 0,
@@ -29,16 +32,31 @@ export class TrajetComponent implements OnInit {
     cargaison_id: 0,
   }
 
+  trajetForm: FormGroup
+
   conducteurs$: Observable<any[]> = of([])
   camions$: Observable<any[]> = of([])
   cargaisons$: Observable<any[]> = of([])
 
   constructor(
+    private fb: FormBuilder,
     private trajetService: TrajetService,
     private conducteurService: ConducteurService,
     private camionService: TruckService,
     private cargaisonService: CargaisonService,
-  ) {}
+  ) {
+    this.trajetForm = this.fb.group({
+      id: [0],
+      pointDepart: ["", [Validators.required]],
+      pointArrivee: ["", [Validators.required]],
+      dateDepart: ["", [Validators.required]],
+      dateArrivee: ["", [Validators.required]],
+      statut: ["EN_ATTENTE"],
+      conducteur_id: [0, [Validators.required, Validators.min(1)]],
+      camion_id: [0, [Validators.required, Validators.min(1)]],
+      cargaison_id: [0, [Validators.required, Validators.min(1)]],
+    })
+  }
 
   ngOnInit(): void {
     this.loadTrajets()
@@ -87,12 +105,17 @@ export class TrajetComponent implements OnInit {
   }
 
   openModal(): void {
+    this.resetForm()
     this.showModal = true
   }
 
   closeModal(): void {
     this.showModal = false
     this.isEditMode = false
+    this.resetForm()
+  }
+
+  resetForm(): void {
     this.currentTrajet = {
       id: 0,
       pointDepart: "",
@@ -104,6 +127,8 @@ export class TrajetComponent implements OnInit {
       camion_id: 0,
       cargaison_id: 0,
     }
+    this.validationErrors = {}
+    this.errorMessage = null
   }
 
   editTrajet(trajet: Trajet): void {
@@ -123,6 +148,10 @@ export class TrajetComponent implements OnInit {
       camion: trajet.camion,
       cargaison: trajet.cargaison,
     }
+
+    this.validationErrors = {}
+    this.errorMessage = null
+
     this.showModal = true
   }
 
@@ -131,6 +160,7 @@ export class TrajetComponent implements OnInit {
 
     const trajetToSave: Trajet = {
       id: this.currentTrajet.id,
+
       pointDepart: this.currentTrajet.pointDepart,
       pointArrivee: this.currentTrajet.pointArrivee,
       dateDepart: this.currentTrajet.dateDepart,
@@ -156,7 +186,7 @@ export class TrajetComponent implements OnInit {
         },
         error: (err) => {
           console.error("Erreur lors de la mise à jour:", err)
-          this.errorMessage = "Erreur lors de la mise à jour du trajet."
+          this.handleApiError(err)
         },
       })
     } else {
@@ -169,10 +199,15 @@ export class TrajetComponent implements OnInit {
         error: (err) => {
           console.error("Erreur lors de l'ajout:", err)
           console.error("Détails:", err.error)
-          this.errorMessage = "Erreur lors de l'ajout du trajet."
+          this.handleApiError(err)
         },
       })
     }
+  }
+
+  handleApiError(err: any): void {
+    this.validationErrors = err.error?.errors || {};
+    this.errorMessage = "Erreur lors de l'enregistrement du trajet.";
   }
 
   deleteTrajet(id: number): void {
@@ -190,4 +225,3 @@ export class TrajetComponent implements OnInit {
     }
   }
 }
-

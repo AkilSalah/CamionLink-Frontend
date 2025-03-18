@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './Features/auth/register/register.component';
 import { LoginComponent } from './Features/auth/login/login.component';
 import { DashboardComponent } from './Features/admin/dashboard/dashboard.component';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AdminNavbarComponent } from './Shared/components/admin-navbar/admin-navbar.component';
 import { ConducteurNavbarComponent } from './Shared/components/conducteur-navbar/conducteur-navbar.component';
@@ -42,6 +42,7 @@ import { UnauthorizedComponent } from './Features/unauthorized/unauthorized.comp
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({ trucks: truckReducer,cargaisons : cargaisonReducer }),
     EffectsModule.forRoot([TruckEffects,CargaisonEffects]),
     StoreDevtoolsModule.instrument({

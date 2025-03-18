@@ -107,18 +107,17 @@
         </p>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        <!-- Carte Conducteur 1 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105 duration-300">
+      <div *ngIf="conducteurs" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div *ngFor="let conducteur of conducteurs" class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105 duration-300">
           <div class="h-56 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+            <img src="https://imgs.search.brave.com/-FrCc-YPayBX1YQCxiFDEQBHTVis3hrFa_Cbl1eDGeA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNTE3/Njk0MjAzL3Bob3Rv/L3RydWNrLWRyaXZl/ci1zaXR0aW5nLWlu/LWNhYi5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9MnQxeGh6/NzUyZktuaEhLR09a/bU1Wb0pzbG5kTGtN/SWxhS3ktaWJ4YWF0/UT0" 
                  alt="Thomas Dubois" 
                  class="w-full h-full object-cover object-center">
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Thomas Dubois</h3>
-            <p class="text-[#bb162b] font-medium mb-3">10 ans d'expérience</p>
-            <p class="text-gray-600 mb-4">Spécialiste du transport longue distance, Thomas a parcouru plus de 1 million de kilomètres en toute sécurité.</p>
+            <h3 class="text-xl font-bold mb-2"> {{conducteur.nom}}-{{conducteur.prenom}} </h3>
+            <p class="text-[#bb162b] font-medium mb-3">{{conducteur.email}} - {{conducteur.contact}} </p>
+            <p class="text-gray-600 mb-4">{{conducteur.numeroPermis}} </p>
             <div class="flex items-center text-sm text-gray-500">
               <span class="mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#efb225]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,76 +125,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </span>
-              <span>Lyon, France</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Carte Conducteur 2 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105 duration-300">
-          <div class="h-56 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1976&q=80" 
-                 alt="Sophie Martin" 
-                 class="w-full h-full object-cover object-center">
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Sophie Martin</h3>
-            <p class="text-[#bb162b] font-medium mb-3">8 ans d'expérience</p>
-            <p class="text-gray-600 mb-4">Experte en transport de marchandises sensibles, Sophie est reconnue pour sa rigueur et sa ponctualité.</p>
-            <div class="flex items-center text-sm text-gray-500">
-              <span class="mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#efb225]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </span>
-              <span>Marseille, France</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Carte Conducteur 3 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105 duration-300">
-          <div class="h-56 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                 alt="Jean Lefebvre" 
-                 class="w-full h-full object-cover object-center">
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Jean Lefebvre</h3>
-            <p class="text-[#bb162b] font-medium mb-3">15 ans d'expérience</p>
-            <p class="text-gray-600 mb-4">Vétéran du transport international, Jean maîtrise parfaitement les procédures douanières et les itinéraires européens.</p>
-            <div class="flex items-center text-sm text-gray-500">
-              <span class="mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#efb225]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </span>
-              <span>Lille, France</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Carte Conducteur 4 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105 duration-300">
-          <div class="h-56 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                 alt="Ahmed Benali" 
-                 class="w-full h-full object-cover object-center">
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Ahmed Benali</h3>
-            <p class="text-[#bb162b] font-medium mb-3">7 ans d'expérience</p>
-            <p class="text-gray-600 mb-4">Spécialiste du transport frigorifique, Ahmed assure la livraison de produits sensibles dans les délais les plus courts.</p>
-            <div class="flex items-center text-sm text-gray-500">
-              <span class="mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#efb225]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </span>
-              <span>Bordeaux, France</span>
+              <span>{{conducteur.disponibilite}} </span>
             </div>
           </div>
         </div>
@@ -212,7 +142,6 @@
     </div>
   </section>
 
-  <!-- Section Témoignages -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
@@ -224,7 +153,6 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Témoignage 1 -->
         <div class="bg-gray-50 p-8 rounded-xl shadow-md relative">
           <div class="absolute -top-5 left-8">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -246,7 +174,6 @@
           </div>
         </div>
         
-        <!-- Témoignage 2 -->
         <div class="bg-gray-50 p-8 rounded-xl shadow-md relative">
           <div class="absolute -top-5 left-8">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -268,7 +195,6 @@
           </div>
         </div>
         
-        <!-- Témoignage 3 -->
         <div class="bg-gray-50 p-8 rounded-xl shadow-md relative">
           <div class="absolute -top-5 left-8">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -31,7 +31,7 @@
           </div>
   
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-gray-700">Poids (tonnes)</label>
+            <label class="block text-sm font-medium text-gray-700">Poids (KG)</label>
             <input [(ngModel)]="currentCargaison.poids" 
                    name="poids" 
                    type="number" 
@@ -106,7 +106,7 @@
             <td class="px-6 py-4 whitespace-nowrap">
               <span class="ml-2 text-sm text-gray-900">{{ cargaison.description }}</span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ cargaison.poids }} T</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ cargaison.poids }} Kg</td>
             <td class="px-6 py-4 whitespace-nowrap">
               <span [ngClass]="{
                 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800': cargaison.type === 'STANDARD',

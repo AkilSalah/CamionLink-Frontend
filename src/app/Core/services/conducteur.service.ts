@@ -34,4 +34,8 @@ export class ConducteurService {
   deleteConducteurAccount(id:number) : Observable<void>{
     return this.http.delete<void>(`${this.baseUrlConducteur}/${id}`);
   }
+
+  getConducteursForHome() : Observable<Utilisateur[]>{
+    return this.http.get<Utilisateur[]>(`${this.baseUrlConducteur}/home`)
+  }
 }

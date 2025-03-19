@@ -11,6 +11,7 @@ import { catchError, EMPTY, finalize, of } from 'rxjs';
 export class PanneComponent {
   @Input() trajetId : number | null = null;
   @Input() pannes : Panne [] = [];
+  @Input() trajetStatut = "";
   @Output() panneChange = new EventEmitter<Panne[]>();
   @Output() successMessage = new EventEmitter<string>();
   @Output() errorMessage = new EventEmitter<string>();
@@ -29,6 +30,11 @@ export class PanneComponent {
     urgence : 'IMMEDIATE' 
     }
   }
+
+  isTrajetTermine(): boolean {
+    return this.trajetStatut === "TERMINE"
+  }
+  
   openDepenseModal(): void {
     this.nouvellePanne = this.getEmptyPannes();
     this.nouvellePanne.trajetId = this.trajetId || 0;

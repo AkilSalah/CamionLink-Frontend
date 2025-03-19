@@ -214,14 +214,16 @@
             <app-depense 
             [trajetId]="trajet.id"
             [depenses]="getTrajetDepenses(trajet.id)"
+            [trajetStatut]="trajet.statut"
             (depensesChange)="onDepensesChange(trajet.id, $event)"
             (successMessage)="onSuccessMessage($event)"
             (errorMessage)="onErrorMessage($event)">
             </app-depense>
-            
+
             <app-panne
             [trajetId] = "trajet.id"
             [pannes] ="getTrajetPannes(trajet.id)"
+            [trajetStatut]="trajet.statut"
             (panneChange)="onPannesChange(trajet.id, $event)"
             (successMessage)="onSuccessMessage($event)"
             (errorMessage)="onErrorMessage($event)">

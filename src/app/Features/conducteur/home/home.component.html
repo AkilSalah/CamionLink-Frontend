@@ -15,11 +15,8 @@
           Rejoignez notre communauté de conducteurs qualifiés et accédez aux meilleures opportunités du secteur du transport routier.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#" class="px-8 py-3 bg-[#bb162b] hover:bg-[#a01425] text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
-            Rejoindre le réseau
-          </a>
-          <a href="#" class="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 font-semibold rounded-lg transition-colors duration-300">
-            En savoir plus
+          <a routerLink="/conducteur/conducteurMission" class="px-8 py-3 bg-[#bb162b] hover:bg-[#a01425] text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+            Consulter votre missions
           </a>
         </div>
       </div>
@@ -27,8 +24,7 @@
     <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
   </section>
 
-  <!-- Section À propos avec grille d'images -->
-  <section class="py-20 bg-white">
+  <section id="about" class="py-20 bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">À propos de <span class="text-[#bb162b]">TruckDrivers</span></h2>
@@ -37,7 +33,6 @@
           Nous connectons les meilleurs conducteurs de camions avec les entreprises de transport les plus réputées depuis plus de 15 ans.
         </p>
       </div>
-      
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         <div class="overflow-hidden rounded-lg shadow-lg h-64">
           <img src="https://media.istockphoto.com/id/1904501572/photo/happy-black-truck-driver-behind-steering-wheel-in-a-cabin-looking-at-camera.jpg?s=612x612&w=0&k=20&c=gJqjET-Qmg9ZA4ivTyIK8hh0YFMVUld3Fwx4OmvekJM=" 
@@ -131,14 +126,14 @@
         </div>
       </div>
       
-      <div class="text-center mt-12">
+      <!-- <div class="text-center mt-12">
         <a href="#" class="inline-flex items-center px-6 py-3 border-2 border-[#bb162b] text-[#bb162b] hover:bg-[#bb162b] hover:text-white font-medium rounded-lg transition-colors duration-300">
           Voir tous nos conducteurs
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </a>
-      </div>
+      </div> -->
     </div>
   </section>
 

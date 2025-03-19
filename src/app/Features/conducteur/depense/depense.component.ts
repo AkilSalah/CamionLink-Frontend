@@ -8,9 +8,11 @@ import { catchError, EMPTY, finalize, of } from 'rxjs';
   templateUrl: './depense.component.html',
   styleUrl: './depense.component.css'
 })
+
 export class DepenseComponent {
   @Input() trajetId: number | null = null;
   @Input() depenses: Depense[] = [];
+  @Input() trajetStatut = "" 
   @Output() depensesChange = new EventEmitter<Depense[]>();
   @Output() successMessage = new EventEmitter<string>();
   @Output() errorMessage = new EventEmitter<string>();
@@ -36,6 +38,10 @@ export class DepenseComponent {
     this.nouvelleDepense = this.getEmptyDepense();
     this.nouvelleDepense.trajetId = this.trajetId || 0;
     this.showDepenseModal = true;
+  }
+  
+  isTrajetTermine(): boolean {
+    return this.trajetStatut === "TERMINE"
   }
   
   closeDepenseModal(): void {

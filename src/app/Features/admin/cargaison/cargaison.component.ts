@@ -21,7 +21,8 @@ export class CargaisonComponent implements OnInit {
     id: 0,
     description: '',
     poids: 0,
-    type: 'STANDARD'
+    type: 'STANDARD',
+    cargaisonStatut : "EN_COURS"
   };
 
   constructor(private store: Store, private carServ: CargaisonService) {
@@ -46,7 +47,9 @@ export class CargaisonComponent implements OnInit {
       id: 0,
       description: '',
       poids: 0,
-      type: 'STANDARD'
+      type: 'STANDARD',
+      cargaisonStatut : 'EN_COURS'
+      
     };
   }
 

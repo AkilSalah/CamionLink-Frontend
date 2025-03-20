@@ -3,4 +3,5 @@ export interface Cargaison{
     description: string,
     poids: number,
     type: 'STANDARD'|'FRAGILE' |'DANGEREUX'
+    cargaisonStatut : 'EN_COURS' | 'LIVREE' 
 }

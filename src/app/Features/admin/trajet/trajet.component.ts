@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Trajet } from '../../../Core/models/trajet.model';
 import { TrajetService } from '../../../Core/services/trajet.service';
 import { ConducteurService } from '../../../Core/services/conducteur.service';
@@ -96,7 +96,7 @@ export class TrajetComponent implements OnInit {
 
     this.cargaisonService.getCargaisons().subscribe({
       next: (response) => {
-        this.cargaisons$ = of(response)
+        this.cargaisons$ = of(response.filter(cargaison => cargaison.cargaisonStatut === 'EN_COURS'))
       },
       error: (err) => {
         console.error("Erreur lors du chargement des cargaisons:", err)

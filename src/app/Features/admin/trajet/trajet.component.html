@@ -9,7 +9,15 @@
     <div *ngIf="errorMessage" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
       {{ errorMessage }}
     </div>
-  
+    <div *ngIf="camions$.pipe.length === 0" class="bg-white rounded-lg shadow p-8 text-center">
+      <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">Aucun trajet trouvé</h3>
+      <div class="mt-6">
+
+      </div>
+    </div>
     <div *ngFor="let trajet of trajets$ | async" class="w-full mt-3 mx-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
       <div class="relative">
         <div class="h-16 bg-gradient-to-r from-[#bb162b] to-[#efb225]"></div>

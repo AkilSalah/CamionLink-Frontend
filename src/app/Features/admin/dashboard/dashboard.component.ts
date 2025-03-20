@@ -15,6 +15,7 @@ export class DashboardComponent {
   trajetCount: number = 0;
   conducteurCount: number = 0;
   trajetsByConducteur : any[] = [];
+  camionPannes : any[] = [];
 
   constructor(
     private truckService: TruckService,
@@ -29,6 +30,7 @@ export class DashboardComponent {
     this.getTrajetCount();
     this.getConducteurCount();
     this.getConducteurTrajetStats();
+    this.getCamionPanne();
   }
 
   getCamionCount() {
@@ -84,6 +86,18 @@ export class DashboardComponent {
         console.error("Erreur lors de la récupération du nombre de trajets par un conducteur", error);
       },
     })
+  }
+
+  getCamionPanne(){
+    this.truckService.getCamionsPanneDetails().subscribe({
+      next: (response) => {
+        console.log(response)
+        this.camionPannes = response;
+      },
+      error: (err) => {
+        console.error("Erreur lors de la récupération des camions :", err);
+      }
+    });
   }
 
 }

@@ -105,10 +105,9 @@
   
 </div>
 
- <!-- Recent Orders Table -->
  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
   <div class="p-6 border-b border-gray-200">
-      <h2 class="text-xl font-semibold text-gray-800">Recent Orders</h2>
+      <h2 class="text-xl font-semibold text-gray-800">Nombre de trajet par conducteur</h2>
   </div>
   <div class="overflow-x-auto">
       <table class="w-full">
@@ -135,5 +134,49 @@
               </tr>
           </tbody>
       </table>
+  </div>
+</div>
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-xl font-semibold text-gray-800">Camions en Panne</h2>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marque</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modèle</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">État</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description Panne</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre d'Entretiens</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let camion of camionPannes">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{camion.camionId}}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{camion.marque}}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{camion.modele}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span 
+              [ngClass]="{
+                'px-2 inline-flex leading-5 font-semibold rounded-full': true,
+                'bg-green-100 text-green-800': camion.etat === 'DISPONIBLE',
+                'bg-red-100 text-red-800': camion.etat === 'EN_PANNE',
+                'bg-yellow-100 text-yellow-800': camion.etat === 'EN_MAINTENANCE'
+              }"
+            >
+              {{camion.etat}}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{camion.descriptionPanne}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="px-2 inline-flex ml-12 leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+              {{camion.nombreEntretiens}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

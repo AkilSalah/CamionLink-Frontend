@@ -43,7 +43,7 @@ export class TrajetService {
 
   updateTrajetStatus(conducteurId: number, trajetId: number, statut: string): Observable<Trajet> {
     const params = new HttpParams().set('statut', statut);
-    return this.http.patch<Trajet>(
+    return this.http.put<Trajet>(
       `${this.conducteurBaseUrl}/${conducteurId}/trajets/${trajetId}/statut`, 
       null, 
       { params }
